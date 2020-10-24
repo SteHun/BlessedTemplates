@@ -13,6 +13,7 @@ def prompt(message, title=None, height=term.height - 2, width=term.width - 2):
     if height <= 0  or width <= 0:
         raise RuntimeError("the menu size can not be 0 or smaller")
     with term.fullscreen(), term.cbreak():
+        val = ""
         if not isinstance(title, str) and title != None:
             raise TypeError("the title argument must be a string. ")
         titlebar_x_start_pos = floor((term.width - width) / 2)
@@ -74,9 +75,6 @@ def prompt(message, title=None, height=term.height - 2, width=term.width - 2):
             to_print += " "
         print(f"{term.move_xy(titlebar_x_start_pos, titlebar_y_start_pos + height-1)}{term.black_on_yellow}{to_print}")
 
-        
-        sleep(3)
-
-
-
-prompt("world",title="hello ")
+        #wait
+        while val.lower() != "\r":
+            val = term.inkey(timeout=3)

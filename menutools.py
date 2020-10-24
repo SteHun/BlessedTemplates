@@ -37,7 +37,7 @@ def prompt(message, title=None, height=term.height - 2, width=term.width - 2):
         #content
         letters_printed = 0
         new_line = False
-        for row in range(height-4):
+        for row in range(height-3):
             to_print = ""
             for _ in range(width-2):
                 if letters_printed <= len(message)-1:
@@ -51,6 +51,30 @@ def prompt(message, title=None, height=term.height - 2, width=term.width - 2):
                 else:   to_print += " "
             print(f"{term.move_xy(titlebar_x_start_pos, titlebar_y_start_pos+row+1)}{term.black_on_yellow} {term.black_on_grey}{to_print}{term.black_on_yellow} ")
             new_line = False
+        #ok prompt
+        
+        ok_text = "<ok>"
+        ok_start_pos = floor(((width-2) - len(ok_text))/2)
+        ok_end_pos = ok_start_pos + len(ok_text)
+        to_print = ""
+        for x in range(width-2):
+            if x >= ok_start_pos and x < ok_end_pos:
+                if x == ok_start_pos:
+                    to_print += term.white_on_red
+                to_print += ok_text[x-ok_start_pos]
+            else:
+                if x == ok_end_pos:
+                    to_print += term.black_on_grey
+                to_print += " "
+        print(f"{term.move_xy(titlebar_x_start_pos, titlebar_y_start_pos + height-2)}{term.black_on_yellow} {term.black_on_grey}{to_print}{term.black_on_yellow} ")
+
+        #bottom bar
+        to_print = ""
+        for x in range(width):
+            to_print += " "
+        print(f"{term.move_xy(titlebar_x_start_pos, titlebar_y_start_pos + height-1)}{term.black_on_yellow}{to_print}")
+
+        
         sleep(3)
 
 
